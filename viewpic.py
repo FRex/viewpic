@@ -17,12 +17,12 @@ class MyPicLabel(QLabel):
         if oldpixmap is None or self.pixmap.isNull():
             super(MyPicLabel, self).setPixmap(self.pixmap)
         elif not self.pixmap.isNull():
-            scaled = self.pixmap.scaled(self.size(), Qt.AspectRatioMode.KeepAspectRatio)
+            scaled = self.pixmap.scaled(self.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
             super(MyPicLabel, self).setPixmap(scaled)
 
     def resizeEvent(self, event):
         if self.pixmap and not self.pixmap.isNull():
-            scaled = self.pixmap.scaled(event.size(), Qt.AspectRatioMode.KeepAspectRatio)
+            scaled = self.pixmap.scaled(event.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
             super(MyPicLabel, self).setPixmap(scaled)
 
 
@@ -31,6 +31,7 @@ class MyMainWindow(QMainWindow):
         super(MyMainWindow, self).__init__()
         self.label = MyPicLabel()
         self.setAcceptDrops(True)
+        self.setMinimumSize(256, 128)
         self.setCentralWidget(self.label)
 
     def openPicture(self, fname):
